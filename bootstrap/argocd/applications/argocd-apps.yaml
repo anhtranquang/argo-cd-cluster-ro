@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-apps
+  annotations:
+    argocd.argoproj.io/manifest-generate-paths: argo-cd/bootstrap/infrastructures/argocd-apps
+spec:
+  project: default
+  ignoreDifferences:
+  - group: argoproj.io
+    kind: Application
+    jsonPointers:
+    - /status
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /status
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo-cd
+  source:
+    repoURL: https://github.com/anhtranquang/argo-cd-cluster-ro.git
+    targetRevision: main
+    path: argo-cd/bootstrap/infrastructures/argocd-apps
+    helm:
+      valueFiles:
+        - values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true
+      - Validate=false

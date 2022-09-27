@@ -1,0 +1,26 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: generate-namespace-admin-rolebinding
+spec:
+  rules:
+  - name: generate-namespace-admin-rolebinding
+    match:
+      any:
+      - resources:
+          kinds:
+          - Namespace
+    generate:
+      kind: RoleBinding
+      apiVersion: rbac.authorization.k8s.io/v1
+      name: "{{request.object.metadata.name}}-admin"
+      namespace: "{{request.object.metadata.name}}"
+      data:  
+        roleRef:
+          apiGroup: rbac.authorization.k8s.io
+          kind: ClusterRole
+          name: argo-cd-argocd-application-controller-cluster-adm
+        subjects:
+        - kind: ServiceAccount
+          name: argocd-application-controller
+          namespace: argo-cd

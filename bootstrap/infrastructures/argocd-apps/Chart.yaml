@@ -1,0 +1,11 @@
+apiVersion: v2
+name: argocd-apps
+description: A Helm chart for ArgoCD Apps
+
+type: application
+version: 0.0.1
+
+dependencies:
+- name: argocd-apps
+  version: 0.0.1
+  repository: https://argoproj.github.io/argo-helm

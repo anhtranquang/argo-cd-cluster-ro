@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kyverno-policies
+  annotations:
+    argocd.argoproj.io/manifest-generate-paths: argo-cd/tools/kyverno-policies
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  ignoreDifferences:
+  - group: argoproj.io
+    kind: Application
+    jsonPointers:
+    - /status
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /status
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kyverno
+  source:
+    repoURL: https://github.com/anhtranquang/argo-cd-cluster-ro.git
+    targetRevision: main
+    path: argo-cd/tools/kyverno-policies
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true
+      - Validate=false

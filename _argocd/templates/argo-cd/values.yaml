@@ -1,0 +1,81 @@
+argo-cd:
+  configs:
+    credentialTemplates:
+      # https-creds:
+      #   url: https://github.com/randomworkspace
+      #   password: PQdDcu8n
+      #   username: randomuser
+      https-creds:
+        url: https://bitbucket.org/cct-marketing
+        password: ATBBLzEJZLCSg833udKQcYuWkv3883ECDF5B
+        username: cct-deploy-read-only
+  controller:
+    clusterAdminAccess:
+      # -- Enable RBAC for local cluster deployments
+      enabled: true
+    ## Enable Custom Rules for the Repo server's Cluster Role resource
+    ## Enable this and set the rules: to whatever custom rules you want for the Cluster Role resource.
+    ## Defaults to off
+    clusterRoleRules:
+      # -- Enable custom rules for the Repo server's Cluster Role resource
+      enabled: true
+      # -- List of custom rules for the Repo server's Cluster Role resource
+      rules:
+      - apiGroups:
+          - "*"
+        resources:
+          - "*"
+        verbs:
+          # - "*"
+          - get
+          - list
+          - watch
+  ## Repo server s
+    resources:
+      limits:
+        cpu: 0.25
+        memory: 0.7G
+      requests:
+        cpu: 0.25
+        memory: 0.7G
+  server:
+    clusterAdminAccess:
+    # -- Enable RBAC for local cluster deployments
+      enabled: false
+    extraArgs:
+      - --insecure
+    config:
+      repositories: |
+        - type: helm
+          name: argo-cd
+          url: https://argoproj.Github.io/argo-helm
+      exec.enabled: "true"
+    resources:
+      limits:
+        cpu: 0.25
+        memory: 0.3G
+      requests:
+        cpu: 0.25
+        memory: 0.3G
+  repoServer:
+    resources:
+      limits:
+        cpu: 0.25
+        memory: 0.7G
+      requests:
+        cpu: 0.25
+        memory: 0.7G
+  redis:
+    resources:
+      limits:
+        cpu: 0.25
+        memory: 0.25G
+      requests:
+        cpu: 0.25
+        memory: 0.25G
+  applicationSet:
+    enabled: false
+  notifications:
+    enabled: false
+  dex:
+    enabled: false

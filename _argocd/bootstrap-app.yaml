@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bootstrap
+  namespace: argo-cd
+spec:
+  project: default
+  destination:
+    namespace: argo-cd
+    server: https://kubernetes.default.svc
+  source:
+    path: argo-cd/bootstrap
+    repoURL: https://github.com/anhtranquang/argo-cd-cluster-ro.git
+    targetRevision: main
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true
+      - Validate=false
