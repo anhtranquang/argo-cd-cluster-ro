@@ -10,5 +10,3 @@ Require following cli tools installed: helm, kubectl ( kubectx and kubens ).
 5. Login to the ArgoCD using user *admin* and password printed from secret: kubectl get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 
 Good luck and have fun!
-
-© CCT Technology 2022
