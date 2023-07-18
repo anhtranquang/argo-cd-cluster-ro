@@ -1,14 +1,10 @@
 argo-cd:
   configs:
     credentialTemplates:
-      # https-creds:
-      #   url: https://github.com/randomworkspace
-      #   password: PQdDcu8n
-      #   username: randomuser
       https-creds:
-        url: https://bitbucket.org/cct-marketing
-        password: ATBBLzEJZLCSg833udKQcYuWkv3883ECDF5B
-        username: cct-deploy-read-only
+        url: https://github.com/randomworkspace
+        password: PQdDcu8n
+        username: randomuser
   controller:
     clusterAdminAccess:
       # -- Enable RBAC for local cluster deployments
