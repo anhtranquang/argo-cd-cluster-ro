@@ -2,9 +2,9 @@ argo-cd:
   configs:
     credentialTemplates:
       https-creds:
-        url: https://github.com/randomworkspace
-        password: PQdDcu8n
-        username: randomuser
+        url: https://github.com/anhtranquang/argo-cd-cluster-ro
+        password: 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
+        username: anhtranquang
   controller:
     clusterAdminAccess:
       # -- Enable RBAC for local cluster deployments
@@ -14,7 +14,7 @@ argo-cd:
     ## Defaults to off
     clusterRoleRules:
       # -- Enable custom rules for the Repo server's Cluster Role resource
-      enabled: true
+      enabled: false
       # -- List of custom rules for the Repo server's Cluster Role resource
       rules:
       - apiGroups:
@@ -37,7 +37,7 @@ argo-cd:
   server:
     clusterAdminAccess:
     # -- Enable RBAC for local cluster deployments
-      enabled: false
+      enabled: true
     extraArgs:
       - --insecure
     config:
