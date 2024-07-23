@@ -3,7 +3,7 @@ argo-cd:
     credentialTemplates:
       https-creds:
         url: https://github.com/anhtranquang/argo-cd-cluster-ro
-        password: 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
+        password: ghp_abc
         username: anhtranquang
   controller:
     clusterAdminAccess:
